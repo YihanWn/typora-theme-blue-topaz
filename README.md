@@ -1,5 +1,7 @@
 # Blue Topaz — Typora Dark Theme
 
+**English** | [中文](README_CN.md)
+
 A dark theme for Typora inspired by the [Nord](https://www.nordtheme.com/) color palette and [Blue-Topaz Obsidian theme](https://github.com/PKM-er/Blue-Topaz_Obsidian-css).
 
 ## Features
@@ -16,7 +18,7 @@ A dark theme for Typora inspired by the [Nord](https://www.nordtheme.com/) color
 
 ## Screenshots
 
-*(Coming soon)*
+![Blue Topaz Preview](1.png)
 
 ## Installation
 
