@@ -61,6 +61,24 @@
   --border-radius: 6px;
   --content-max-width: 1200px;
   --content-padding: 70px;
+
+  /* Typora 内置 UI 变量 */
+  --bg-color: #2e3440;
+  --text-color: #eceff4;
+  --side-bar-bg-color: #3b4252;
+  --active-file-bg-color: rgba(94, 129, 172, 0.25);
+  --active-file-text-color: #eceff4;
+  --active-file-border-color: #5e81ac;
+  --item-hover-bg-color: #434c5e;
+  --item-hover-text-color: #eceff4;
+  --control-text-color: #d8dee9;
+  --control-text-hover-color: #eceff4;
+  --window-border: 1px solid #4c566a;
+  --rawblock-edit-panel-bd: #3b4252;
+  --search-select-bg-color: #5e81ac;
+  --primary-color: #5e81ac;
+  --primary-btn-border-color: #4c566a;
+  --primary-btn-text-color: #eceff4;
 }
 
 /* ===========================================================================
@@ -741,7 +759,13 @@ pre.md-meta-block {
 #typora-sidebar {
   background-color: var(--bg-color-secondary);
   border-right: 1px solid var(--border-color);
-  color: var(--text-color-secondary);
+  color: var(--text-color-primary);
+}
+
+/* 侧边栏标题栏 */
+#typora-sidebar .sidebar-title,
+#typora-sidebar .sidebar-header {
+  color: var(--text-color-primary) !important;
 }
 
 /* 文件列表 */
@@ -759,6 +783,71 @@ pre.md-meta-block {
 .file-list-item.active {
   background-color: var(--accent-blue);
   color: white;
+}
+
+/* 文件树 — 全局文字颜色 */
+#typora-sidebar,
+#typora-sidebar *:not(.file-node-background) {
+  color: var(--text-color-secondary) !important;
+}
+
+/* 文件树节点背景 */
+#typora-sidebar .file-node-background {
+  background-color: transparent !important;
+}
+
+/* 文件树悬停 */
+#typora-sidebar .file-tree-node:hover .file-node-content,
+#typora-sidebar .file-tree-node:hover .file-node-title {
+  color: var(--text-color-primary) !important;
+}
+
+/* 文件树选中项 */
+#typora-sidebar .file-tree-node.active > .file-node-content,
+#typora-sidebar .file-tree-node.active > .file-node-content *,
+#typora-sidebar .active .file-node-title {
+  color: #eceff4 !important;
+}
+
+#typora-sidebar .file-tree-node.active .file-node-background {
+  background-color: rgba(94, 129, 172, 0.25) !important;
+}
+
+/* 文件列表选中项 */
+#typora-sidebar .file-list-item.active {
+  background-color: rgba(94, 129, 172, 0.25) !important;
+  color: #eceff4 !important;
+}
+
+#typora-sidebar .file-list-item.active * {
+  color: #eceff4 !important;
+}
+
+/* 侧边栏底部控件（排序/视图切换按钮） */
+#typora-sidebar .sidebar-footer-btn,
+#typora-sidebar .sidebar-footer-btn.active,
+#typora-sidebar .file-sort-icon,
+#typora-sidebar .file-sort-icon.active,
+#typora-sidebar .sidebar-footer-item,
+#typora-sidebar .sidebar-footer-item.active,
+#typora-sidebar .ty-sidebar-footer button,
+#typora-sidebar .ty-sidebar-footer .btn,
+#typora-sidebar [class*="sort"] button,
+#typora-sidebar [class*="sort"] .active,
+#typora-sidebar .sidebar-menu-item,
+#typora-sidebar .sidebar-menu-item.active {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#typora-sidebar .sidebar-footer-btn.active,
+#typora-sidebar .file-sort-icon.active,
+#typora-sidebar .sidebar-footer-item.active,
+#typora-sidebar .sidebar-menu-item.active {
+  color: var(--text-color-primary) !important;
+  background-color: var(--bg-color-tertiary) !important;
+  border-radius: 4px !important;
 }
 
 /* 搜索面板 */
