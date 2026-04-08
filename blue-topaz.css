@@ -1,0 +1,1045 @@
+/**
+ * Nord-Obsidian Theme for Typora
+ * 基于Nord配色方案，迁移自Obsidian Blue-Topaz主题设置
+ * 支持中文字体和代码高亮
+ */
+
+/* ===========================================================================
+   Nord Color Palette (来自nord.css)
+   =========================================================================== */
+
+:root {
+  /* Nord背景色系 */
+  --bg-color-primary: #2e3440;     /* 主背景色 */
+  --bg-color-secondary: #3b4252;   /* 面板、侧边栏背景 */
+  --bg-color-tertiary: #434c5e;    /* 悬停背景 */
+  --bg-color-code: rgb(29, 31, 35); /* 代码块背景（原版nord.css） */
+  --bg-color-inline-code: rgb(29, 31, 35); /* 行内代码背景（与代码块一致） */
+  
+  /* Nord文本色系 */
+  --text-color-primary: #eceff4;   /* 主文本色 */
+  --text-color-secondary: #e5e9f0; /* 次要文本色 */
+  --text-color-muted: #d8dee9;     /* 弱化文本色 */
+  --text-color-accent: #81a1c1;    /* 强调文本色、有序列表数字 */
+  
+  /* Nord强调色系 */
+  --accent-blue: #5e81ac;           /* 链接、按钮 */
+  --accent-cyan: #8fbcbb;           /* 代码关键字 */
+  --accent-green: #a3be8c;          /* 代码字符串、H4标题、斜体文本 */
+  --accent-yellow: #ebcb8b;         /* 代码数字、H3标题 */
+  --accent-orange: #d08770;         /* 代码操作符、H2标题 */
+  --accent-red: #bf616a;            /* 代码标签、错误、H1标题 */
+  --accent-purple: #b48ead;         /* 代码关键字变体、H5标题 */
+  
+  /* 文本强调色系 */
+  --strong-color: #E8B4B4;          /* 粗体文本专用色 */
+  --strong-em-color: #F55354;       /* 粗斜体文本专用色 */
+  
+  /* 功能色系 */
+  --border-color: #4c566a;          /* 边框色 */
+  --hover-bg: rgba(76, 86, 106, 0.3); /* 悬停背景 */
+  --selection-bg: rgba(94, 129, 172, 0.3); /* 选择背景 */
+  --shadow: rgba(0, 0, 0, 0.3);     /* 阴影 */
+  
+  /* 字体设置（来自Obsidian配置） */
+  --font-family-sans: 'LXGW WenKai', 'LXGW WenKai Screen R', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', Consolas, monospace;
+  --font-family-heading: '霞鹜文楷 GB Medium', 'LXGW WenKai', serif;
+  
+  /* 字体大小（来自Obsidian配置） */
+  --font-size-base: 16px;
+  --font-size-h1: 1.7625em;         /* 28.2px */
+  --font-size-h2: 1.6375em;         /* 26.2px */
+  --font-size-h3: 1.5125em;         /* 24.2px */
+  --font-size-h4: 1.3875em;         /* 22.2px */
+  --font-size-h5: 1.2625em;         /* 20.2px */
+  --font-size-h6: 1em;              /* 16px */
+  --font-size-code: 0.9em;          /* 14.4px */
+  
+  /* 其他设置 */
+  --line-height-base: 1.6;
+  --border-radius: 6px;
+  --content-max-width: 1200px;
+  --content-padding: 70px;
+}
+
+/* ===========================================================================
+   基础样式设置
+   =========================================================================== */
+
+html {
+  font-size: var(--font-size-base);
+  background-color: var(--bg-color-primary);
+}
+
+body {
+  font-family: var(--font-family-sans);
+  color: var(--text-color-primary);
+  background-color: var(--bg-color-primary);
+  line-height: var(--line-height-base);
+  margin: 0;
+  padding: 0;
+  -webkit-font-feature-settings: "liga" on, "calt" on;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 主编辑区域 */
+#write {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 40px var(--content-padding);
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+}
+
+/* 源代码模式 */
+#typora-source .CodeMirror-lines {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 40px var(--content-padding);
+}
+
+/* ===========================================================================
+   标题样式
+   =========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  color: var(--text-color-primary);
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #bf616a;
+  margin-top: 0;
+  color: #bf616a;  /* Nord Aurora Red */
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid #d08770;
+  color: #d08770;  /* Nord Aurora Orange */
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  color: #ebcb8b;  /* Nord Aurora Yellow */
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #ebcb8b;
+}
+
+h4 {
+  font-size: var(--font-size-h4);
+  color: #a3be8c;  /* Nord Aurora Green */
+}
+
+h5 {
+  font-size: var(--font-size-h5);
+  color: #b48ead;  /* Nord Aurora Purple */
+}
+
+h6 {
+  font-size: var(--font-size-h6);
+  color: var(--text-color-muted);
+  font-weight: normal;
+}
+
+/* ===========================================================================
+   文本样式
+   =========================================================================== */
+
+p {
+  margin: 1rem 0;
+  color: var(--text-color-primary);
+}
+
+/* 文本选择 */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--text-color-primary);
+}
+
+/* 强调文本 */
+strong {
+  color: #E8B4B4;  /* 浅粉色，温柔的强调色 */
+  font-family: var(--font-family-heading);
+  font-weight: bold;
+}
+
+em {
+  color: #a3be8c;  /* 与H4相同的Nord Aurora Green */
+  font-style: italic;
+}
+
+/* 粗斜体 (***content***) */
+strong em,
+em strong {
+  color: #F55354;  /* 鲜艳的红橙色，用于最强调的文本 */
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* 删除线 */
+del {
+  color: var(--text-color-muted);
+  text-decoration: line-through;
+}
+
+/* 高亮 - 荧光笔样式 */
+mark {
+  background-color: rgba(235, 203, 139, 0.3);
+  color: var(--text-color-primary);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* 下标和上标 */
+sub, sup {
+  color: var(--accent-cyan);
+  font-size: 0.8em;
+}
+
+/* ===========================================================================
+   链接样式
+   =========================================================================== */
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-cyan);
+  border-bottom-color: var(--accent-cyan);
+}
+
+/* ===========================================================================
+   代码样式
+   =========================================================================== */
+
+/* 行内代码 */
+code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code);
+  background-color: var(--bg-color-inline-code);
+  color: #88c0d0;  /* Nord Frost 2 - 明亮的蓝色 */
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 键盘快捷键 */
+kbd {
+  border: 1px solid #5b5b5e;
+  background: transparent;
+  color: var(--text-color-primary);
+  margin: 0 4px;
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  padding: 3px 6px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 代码块 */
+.md-fences,
+.md-fences:active {
+  background-color: var(--bg-color-code);
+  border-radius: var(--border-radius);
+  padding: 8px 4px 8px 4px !important;
+  margin: 1.5rem 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code);
+  color: var(--text-color-primary);
+  line-height: 1.5;
+  overflow-x: auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* 代码块语言标签 - 独立小窗口样式 */
+.md-fences .code-tooltip {
+  display: block !important;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
+  background-color: var(--bg-color-code);
+  color: var(--text-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-family: var(--font-family-mono);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10;
+  min-width: 30px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 代码块聚焦时显示语言标签 */
+.md-fences.md-focus .code-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* CodeMirror代码编辑区域内边距 */
+.CodeMirror-lines {
+  padding-left: 4px;
+}
+
+/* 语言选择面板 */
+.auto-suggest-container {
+  background-color: var(--bg-color-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+  color: var(--text-color-primary) !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: 14px !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+  z-index: 1000 !important;
+}
+
+/* 语言选择项 */
+.auto-suggest-container .auto-suggest-item {
+  background-color: transparent !important;
+  color: var(--text-color-secondary) !important;
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  border-bottom: 1px solid rgba(76, 86, 106, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* 语言选择项悬停 */
+.auto-suggest-container .auto-suggest-item:hover,
+.auto-suggest-container .auto-suggest-item.active {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* 语言选择项高亮显示 */
+.auto-suggest-container .auto-suggest-item.selected {
+  background-color: var(--accent-blue) !important;
+  color: white !important;
+}
+
+/* 移除最后一项的边框 */
+.auto-suggest-container .auto-suggest-item:last-child {
+  border-bottom: none !important;
+}
+
+/* 删除重复的代码块聚焦样式 */
+
+/* 代码块语言输入框 */
+.md-fences .code-tooltip input {
+  background-color: var(--bg-color-tertiary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  color: var(--text-color-primary) !important;
+  padding: 4px 8px !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: 12px !important;
+}
+
+.md-fences .code-tooltip input:focus {
+  outline: none !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 2px rgba(94, 129, 172, 0.2) !important;
+}
+
+/* 语言选择下拉箭头 */
+.md-fences .code-tooltip .code-tooltip-content::after {
+  color: var(--text-color-muted) !important;
+}
+
+/* Typora的语言建议面板（另一种可能的类名） */
+.ty-suggest-panel {
+  background-color: var(--bg-color-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 4px 12px var(--shadow) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.ty-suggest-panel .ty-suggest-item {
+  background-color: transparent !important;
+  color: var(--text-color-secondary) !important;
+  padding: 6px 12px !important;
+  cursor: pointer !important;
+}
+
+.ty-suggest-panel .ty-suggest-item:hover,
+.ty-suggest-panel .ty-suggest-item.active {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* ===========================================================================
+   代码高亮（Material Palenight主题）
+   =========================================================================== */
+
+/* Material Palenight 配色变量 */
+:root {
+  /* Material Palenight 主要颜色 */
+  --mp-background: #292D3E;
+  --mp-foreground: #A6ACCD;
+  --mp-comment: #676E95;
+  --mp-keyword: #C792EA;
+  --mp-string: #C3E88D;
+  --mp-number: #F78C6C;
+  --mp-function: #82AAFF;
+  --mp-variable: #EEFFFF;
+  --mp-property: #C792EA;
+  --mp-tag: #F07178;
+  --mp-attribute: #FFCB6B;
+  --mp-operator: #89DDFF;
+  --mp-punctuation: #89DDFF;
+  --mp-class: #FFCB6B;
+  --mp-constant: #F78C6C;
+  --mp-builtin: #FFCB6B;
+}
+
+/* CodeMirror语法高亮 - Material Palenight */
+.cm-s-inner .cm-keyword { color: var(--mp-keyword) !important; }        /* 关键字：紫色 */
+.cm-s-inner .cm-string { color: var(--mp-string) !important; }          /* 字符串：绿色 */
+.cm-s-inner .cm-comment { color: var(--mp-comment) !important; font-style: italic; } /* 注释：灰色斜体 */
+.cm-s-inner .cm-number { color: var(--mp-number) !important; }          /* 数字：橙色 */
+.cm-s-inner .cm-operator { color: var(--mp-operator) !important; }      /* 操作符：青色 */
+.cm-s-inner .cm-property { color: var(--mp-property) !important; }      /* 属性：紫色 */
+.cm-s-inner .cm-tag { color: var(--mp-tag) !important; }                /* 标签：红色 */
+.cm-s-inner .cm-attribute { color: var(--mp-attribute) !important; }    /* 属性名：黄色 */
+.cm-s-inner .cm-variable { color: var(--mp-variable) !important; }      /* 变量：白色 */
+.cm-s-inner .cm-variable-2 { color: var(--mp-function) !important; }    /* 变量2：蓝色 */
+.cm-s-inner .cm-def { color: var(--mp-function) !important; }           /* 定义：蓝色 */
+.cm-s-inner .cm-bracket { color: var(--mp-punctuation) !important; }    /* 括号：青色 */
+.cm-s-inner .cm-builtin { color: var(--mp-builtin) !important; }        /* 内置：黄色 */
+.cm-s-inner .cm-atom { color: var(--mp-constant) !important; }          /* 原子：橙色 */
+.cm-s-inner .cm-meta { color: var(--mp-attribute) !important; }         /* 元信息：黄色 */
+.cm-s-inner .cm-qualifier { color: var(--mp-keyword) !important; }      /* 限定符：紫色 */
+.cm-s-inner .cm-link { color: var(--mp-function) !important; }          /* 链接：蓝色 */
+.cm-s-inner .cm-quote { color: var(--mp-string) !important; }           /* 引用：绿色 */
+.cm-s-inner .cm-negative { color: var(--mp-tag) !important; }           /* 负数：红色 */
+.cm-s-inner .cm-positive { color: var(--mp-string) !important; }        /* 正数：绿色 */
+.cm-s-inner .cm-string-2 { color: var(--mp-string) !important; }        /* 字符串2：绿色 */
+.cm-s-inner .cm-variable-3 { color: var(--mp-class) !important; }       /* 变量3：黄色 */
+.cm-s-inner .cm-hr { color: var(--mp-operator) !important; }            /* 水平线：青色 */
+
+/* Typora内置代码高亮 - Material Palenight */
+.cm-s-typora-default .cm-header { color: var(--mp-function) !important; }    /* 标题：蓝色 */
+.cm-s-typora-default .cm-string { color: var(--mp-string) !important; }      /* 字符串：绿色 */
+.cm-s-typora-default .cm-comment { color: var(--mp-comment) !important; }    /* 注释：灰色 */
+.cm-s-typora-default .cm-number { color: var(--mp-number) !important; }      /* 数字：橙色 */
+.cm-s-typora-default .cm-link { color: var(--mp-function) !important; }      /* 链接：蓝色 */
+.cm-s-typora-default .cm-tag { color: var(--mp-tag) !important; }            /* 标签：红色 */
+.cm-s-typora-default .cm-strong { color: var(--mp-keyword) !important; }     /* 粗体：紫色 */
+.cm-s-typora-default .cm-em { color: var(--mp-attribute) !important; }       /* 斜体：黄色 */
+.cm-s-typora-default .cm-property { color: var(--mp-property) !important; }  /* 属性：紫色 */
+.cm-s-typora-default .cm-atom { color: var(--mp-constant) !important; }      /* 原子：橙色 */
+.cm-s-typora-default .cm-keyword { color: var(--mp-keyword) !important; }    /* 关键字：紫色 */
+.cm-s-typora-default .cm-code { color: var(--mp-string) !important; }        /* 代码：绿色 */
+.cm-s-typora-default .cm-del { color: var(--mp-tag) !important; }            /* 删除：红色 */
+.cm-s-typora-default .cm-block-start { color: var(--mp-operator) !important; } /* 块开始：青色 */
+
+/* 特殊语言支持 */
+.cm-s-typora-default .cm-formatting-task { color: var(--mp-keyword) !important; } /* 任务格式：紫色 */
+
+/* ===========================================================================
+   引用块样式
+   =========================================================================== */
+
+blockquote {
+  border-left: 4px solid var(--accent-blue);
+  background-color: rgba(94, 129, 172, 0.1);
+  padding: 16px 20px;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  color: var(--text-color-secondary);
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0.5rem 0;
+}
+
+blockquote blockquote {
+  border-left-color: var(--accent-cyan);
+  background-color: rgba(143, 188, 187, 0.1);
+}
+
+/* ===========================================================================
+   列表样式
+   =========================================================================== */
+
+ul, ol {
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+
+li {
+  margin: 0.5rem 0;
+  color: var(--text-color-primary);
+}
+
+/* 有序列表数字样式 */
+ol li::marker {
+  color: #81a1c1;  /* Nord蓝色调，用于有序列表数字 */
+  font-weight: 600;
+  font-family: var(--font-family-heading);
+}
+
+/* 任务列表 - SVG 自定义勾选框 */
+#write input[type=checkbox] {
+  opacity: 0;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: -2em;
+  margin-top: 0;
+  top: 0;
+}
+
+#write .ul-list li.md-task-list-item.task-list-done::before {
+  content: "";
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='128' y='128' width='768' height='768' rx='100' fill='%235e81ac'/%3E%3Cpath d='M425.984 726.016l384-384-59.99-61.995-324.01 324.011-152.021-152.021L213.973 512z' fill='white'/%3E%3C/svg%3E") 0 0 no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: -2em;
+}
+
+#write .ul-list li.md-task-list-item.task-list-not-done::before {
+  content: "";
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='160' y='160' width='704' height='704' rx='80' fill='none' stroke='%234c566a' stroke-width='64'/%3E%3C/svg%3E") 0 0 no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-left: -2em;
+}
+
+.task-list-item p {
+  line-height: 1.6rem;
+}
+
+/* ===========================================================================
+   表格样式
+   =========================================================================== */
+
+table {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background-color: var(--bg-color-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  width: 100%;
+}
+
+thead,
+.md-table thead tr,
+.md-table-fig thead tr {
+  background-color: #4A5368 !important;
+}
+
+th, td {
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+th {
+  color: var(--text-color-primary);
+  font-weight: 600;
+  font-family: var(--font-family-heading);
+}
+
+td {
+  color: var(--text-color-secondary);
+}
+
+/* 奇数行 */
+tr:nth-child(odd),
+.md-table tbody tr:nth-child(odd) {
+  background-color: var(--bg-color-primary);     /* #2e3440 */
+}
+
+/* 偶数行 */
+tr:nth-child(even),
+.md-table tbody tr:nth-child(even) {
+  background-color: var(--bg-color-secondary);   /* #3b4252 */
+}
+
+tr:hover,
+.md-table tbody tr:hover {
+  background-color: rgba(94, 129, 172, 0.2) !important;
+}
+
+/* 表格编辑工具条 */
+.ty-table-edit {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 4px 8px;
+  margin-top: -1rem !important;
+}
+
+.ty-table-edit button {
+  background-color: transparent;
+  color: var(--text-color-secondary);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+.ty-table-edit button:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-color-primary);
+}
+
+/* ===========================================================================
+   脚注样式
+   =========================================================================== */
+
+#write .md-footnote {
+  background-color: inherit;
+  color: var(--accent-blue);
+  font-size: 0.9rem;
+  padding-left: 0;
+}
+
+#write .md-footnote:before {
+  content: "[";
+}
+
+#write .md-footnote:after {
+  content: "]";
+}
+
+.footnotes {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+  opacity: 1;
+}
+
+/* ===========================================================================
+   分割线样式
+   =========================================================================== */
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+  margin: 2rem 0;
+}
+
+/* ===========================================================================
+   图片样式
+   =========================================================================== */
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--shadow);
+  margin: 1rem 0;
+}
+
+/* ===========================================================================
+   YAML Front Matter
+   =========================================================================== */
+
+pre.md-meta-block {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin: 0 0 2rem 0;
+  color: var(--text-color-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-code);
+}
+
+/* ===========================================================================
+   目录 (TOC) 样式
+   =========================================================================== */
+
+.md-toc {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  margin: 1.5rem 0;
+}
+
+.md-toc-content {
+  color: var(--text-color-secondary);
+}
+
+.md-toc-item {
+  margin: 4px 0;
+}
+
+.md-toc-item a {
+  color: var(--text-color-secondary);
+  text-decoration: none;
+}
+
+.md-toc-item a:hover {
+  color: var(--accent-blue);
+}
+
+/* ===========================================================================
+   大纲面板样式（简洁版）
+   =========================================================================== */
+
+/* 大纲下拉菜单面板 */
+#outline-dropmenu {
+  background-color: var(--bg-color-secondary) !important;
+  border: 0px !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2) !important;
+  color: var(--text-color-secondary) !important;
+}
+
+/* 大纲项目悬停 */
+.outline-item:hover {
+  color: var(--hover-text-color) !important;
+}
+
+/* 大纲标签悬停 */
+.outline-label:hover {
+  text-decoration: none !important;
+}
+
+/* 侧边栏固定大纲激活项 */
+.pin-outline .outline-active {
+  color: var(--hover-text-color) !important;
+}
+
+/* ===========================================================================
+   UI控件样式
+   =========================================================================== */
+
+/* 侧边栏 */
+#typora-sidebar {
+  background-color: var(--bg-color-secondary);
+  border-right: 1px solid var(--border-color);
+  color: var(--text-color-secondary);
+}
+
+/* 文件列表 */
+.file-list-item {
+  color: var(--text-color-secondary);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.file-list-item:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-color-primary);
+}
+
+.file-list-item.active {
+  background-color: var(--accent-blue);
+  color: white;
+}
+
+/* 搜索面板 */
+#md-searchpanel {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+/* 输入框 */
+input, textarea {
+  background-color: var(--bg-color-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color-primary);
+  padding: 8px 12px;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(94, 129, 172, 0.2);
+}
+
+/* 按钮 */
+.btn {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-cyan);
+  transform: translateY(-1px);
+}
+
+/* 状态栏 */
+footer {
+  background-color: var(--bg-color-secondary);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color-muted);
+}
+
+/* ===========================================================================
+   滚动条样式
+   =========================================================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
+/* ===========================================================================
+   源代码模式特殊样式
+   =========================================================================== */
+
+#typora-source {
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  font-family: var(--font-family-mono);
+}
+
+.CodeMirror {
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  border: none;
+}
+
+.CodeMirror-lines {
+  padding: 20px 0;
+}
+
+.CodeMirror-cursor {
+  border-left: 2px solid var(--accent-blue);
+}
+
+.CodeMirror-selected {
+  background-color: var(--selection-bg);
+}
+
+/* ===========================================================================
+   HTML 块样式
+   =========================================================================== */
+
+.md-htmlblock-container {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 8px;
+  color: var(--text-color-primary);
+}
+
+.md-htmlblock:hover .md-htmlblock-container {
+  background-color: var(--bg-color-secondary);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* HTML/Raw 块编辑模式 */
+.md-rawblock > .md-rawblock-container {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+  border-radius: var(--border-radius);
+}
+
+.md-htmlblock.md-focus .md-htmlblock-container {
+  background-color: var(--bg-color-secondary) !important;
+}
+
+.md-rawblock-input {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* Raw 块工具提示 */
+.md-rawblock > .md-rawblock-tooltip,
+.md-rawblock-tooltip {
+  background-color: var(--bg-color-secondary) !important;
+  color: var(--text-color-muted) !important;
+}
+
+.md-rawblock-tooltip .ty-rawblock-confirm,
+.md-rawblock-tooltip a,
+.md-rawblock-tooltip span {
+  background-color: var(--bg-color-secondary) !important;
+  color: var(--text-color-muted) !important;
+}
+
+/* HTML块右上角标签 */
+.md-htmlblock-panel,
+.md-htmlblock .md-rawblock-tooltip {
+  background-color: var(--bg-color-secondary) !important;
+  color: var(--text-color-muted) !important;
+}
+
+.md-rawblock-before,
+.md-rawblock-after {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* ===========================================================================
+   数学公式样式
+   =========================================================================== */
+
+.md-inline-math script,
+.md-display-math script {
+  color: var(--accent-purple);
+}
+
+/* MathJax容器 */
+.MathJax_Display {
+  margin: 1rem 0;
+}
+
+/* 数学公式编辑面板 */
+.md-rawblock-control:not(.md-rawblock-tooltip) {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.md-mathjax-midline {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.md-rawblock-on-edit,
+.md-rawblock-on-edit .md-rawblock-container {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+/* 数学公式编辑面板背景 */
+.rawblock-edit-panel-bd,
+[class*="rawblock-edit"] {
+  background-color: var(--bg-color-code) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.MathJax_SVG:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+/* 编辑模式光标颜色 */
+.md-rawblock-container .CodeMirror div.CodeMirror-cursor,
+.md-htmlblock-container .CodeMirror div.CodeMirror-cursor,
+.md-rawblock .CodeMirror div.CodeMirror-cursor,
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 2px solid #d8dee9 !important;
+}
+
+.md-rawblock-input .CodeMirror-cursor,
+.md-mathjax-midline .CodeMirror-cursor {
+  border-left: 2px solid #d8dee9 !important;
+}
+
+/* textarea 光标 */
+textarea {
+  caret-color: #d8dee9 !important;
+}
+
+/* ===========================================================================
+   响应式设计
+   =========================================================================== */
+
+@media (max-width: 768px) {
+  #write {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  #typora-source .CodeMirror-lines {
+    padding: 20px;
+  }
+  
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.2em; }
+  h4 { font-size: 1.1em; }
+  h5 { font-size: 1em; }
+  h6 { font-size: 0.9em; }
+}
+
+/* ===========================================================================
+   打印样式
+   =========================================================================== */
+
+@media print {
+  #write {
+    background: white;
+    color: black;
+    font-size: 12pt;
+    line-height: 1.4;
+    max-width: none;
+    padding: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;  /* 深灰色，保持层级视觉效果 */
+    border-color: #ccc;
+  }
+  
+  /* 打印时保持标题颜色的层级差异 */
+  h1 { color: #8B4B4B; }  /* 深红色 */
+  h2 { color: #A06B50; }  /* 深橙色 */
+  h3 { color: #B8A66B; }  /* 深黄色 */
+  h4 { color: #7B9A6C; }  /* 深绿色 */
+  h5 { color: #946B8D; }  /* 深紫色 */
+  
+  pre, code {
+    background: #f5f5f5;
+    color: black;
+    border: 1px solid #ccc;
+  }
+  
+  blockquote {
+    background: #f9f9f9;
+    border-left-color: #ccc;
+    color: #333;
+  }
+  
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+}
