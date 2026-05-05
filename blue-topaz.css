@@ -1094,41 +1094,184 @@ textarea {
    =========================================================================== */
 
 @media print {
+  :root {
+    --bg-color-primary: #2e3440;
+    --bg-color-secondary: #3b4252;
+    --bg-color-tertiary: #434c5e;
+    --bg-color-code: rgb(29, 31, 35);
+    --bg-color-inline-code: rgb(29, 31, 35);
+    --text-color-primary: #eceff4;
+    --text-color-secondary: #e5e9f0;
+    --text-color-muted: #d8dee9;
+    --border-color: #4c566a;
+    --selection-bg: rgba(94, 129, 172, 0.3);
+  }
+
+  @page {
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: var(--bg-color-primary) !important;
+    color: var(--text-color-primary) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   #write {
-    background: white;
-    color: black;
-    font-size: 12pt;
-    line-height: 1.4;
+    background: var(--bg-color-primary) !important;
+    color: var(--text-color-primary) !important;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
     max-width: none;
-    padding: 0;
+    min-height: 100vh;
+    padding: 40px var(--content-padding);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #write p,
+  #write li,
+  #write td,
+  #write th,
+  #write dd,
+  #write dt {
+    color: var(--text-color-primary) !important;
+  }
+
+  #write p,
+  #write li {
+    orphans: 3;
+    widows: 3;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    color: #333;  /* 深灰色，保持层级视觉效果 */
-    border-color: #ccc;
+    break-after: avoid;
+    page-break-after: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   
-  /* 打印时保持标题颜色的层级差异 */
-  h1 { color: #8B4B4B; }  /* 深红色 */
-  h2 { color: #A06B50; }  /* 深橙色 */
-  h3 { color: #B8A66B; }  /* 深黄色 */
-  h4 { color: #7B9A6C; }  /* 深绿色 */
-  h5 { color: #946B8D; }  /* 深紫色 */
+  h1 {
+    color: #bf616a !important;
+    border-bottom-color: #bf616a !important;
+  }
+
+  h2 {
+    color: #d08770 !important;
+    border-bottom-color: #d08770 !important;
+  }
+
+  h3 {
+    color: #ebcb8b !important;
+    border-bottom-color: #ebcb8b !important;
+  }
+
+  h4 {
+    color: #a3be8c !important;
+  }
+
+  h5 {
+    color: #b48ead !important;
+  }
+
+  h6 {
+    color: var(--text-color-muted) !important;
+  }
+
+  strong {
+    color: #E8B4B4 !important;
+  }
+
+  em {
+    color: #a3be8c !important;
+  }
+
+  strong em,
+  em strong {
+    color: #F55354 !important;
+  }
   
   pre, code {
-    background: #f5f5f5;
-    color: black;
-    border: 1px solid #ccc;
+    background: var(--bg-color-code) !important;
+    color: var(--text-color-primary) !important;
+    border: 1px solid var(--border-color);
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  table,
+  .md-table,
+  .md-table-fig {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border-radius: 0 !important;
+    break-inside: auto;
+    page-break-inside: auto;
+    overflow: visible !important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    table-layout: fixed;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  table th,
+  table td,
+  .md-table th,
+  .md-table td,
+  .md-table-fig th,
+  .md-table-fig td {
+    padding: 8px 12px;
+    line-height: 1.45;
+    vertical-align: middle;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+
+  tr,
+  th,
+  td {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    -webkit-region-break-inside: avoid;
+  }
+
+  tbody tr {
+    break-before: auto;
+    break-after: auto;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
   }
   
   blockquote {
-    background: #f9f9f9;
-    border-left-color: #ccc;
-    color: #333;
+    background: rgba(94, 129, 172, 0.1) !important;
+    border-left-color: var(--accent-blue);
+    color: var(--text-color-secondary) !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  blockquote p,
+  blockquote li {
+    color: var(--text-color-secondary) !important;
   }
   
   a {
-    color: black;
+    color: var(--accent-blue);
     text-decoration: underline;
   }
 }
