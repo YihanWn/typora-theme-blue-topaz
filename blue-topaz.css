@@ -1215,11 +1215,11 @@ textarea {
 }
 
 /* 时序图、状态图与类图中的常见元素 */
-#write .md-diagram-panel .actor,
-#write .md-diagram-panel .labelBox,
+#write .md-diagram-panel rect.actor,
+#write .md-diagram-panel rect.labelBox,
 #write .md-diagram-panel .classGroup rect,
 #write .md-diagram-panel .stateGroup rect,
-#write .md-diagram-panel .note {
+#write .md-diagram-panel rect.note {
   fill: var(--mermaid-node-bg) !important;
   stroke: var(--mermaid-node-border) !important;
 }
@@ -1237,13 +1237,18 @@ textarea {
   stroke: var(--accent-cyan) !important;
 }
 
+#write .md-diagram-panel text.actor,
+#write .md-diagram-panel text.actor tspan,
 #write .md-diagram-panel .messageText,
 #write .md-diagram-panel .loopText,
 #write .md-diagram-panel .noteText,
+#write .md-diagram-panel .labelText,
+#write .md-diagram-panel .sequenceNumber,
 #write .md-diagram-panel .classText,
 #write .md-diagram-panel .state-title {
   fill: var(--mermaid-node-text) !important;
   color: var(--mermaid-node-text) !important;
+  stroke: none !important;
 }
 
 #write .md-diagram-panel-error:empty {
