@@ -1240,12 +1240,18 @@ textarea {
 #write .md-diagram-panel text.actor,
 #write .md-diagram-panel text.actor tspan,
 #write .md-diagram-panel .messageText,
+#write .md-diagram-panel .messageText tspan,
 #write .md-diagram-panel .loopText,
+#write .md-diagram-panel .loopText tspan,
 #write .md-diagram-panel .noteText,
+#write .md-diagram-panel .noteText tspan,
 #write .md-diagram-panel .labelText,
+#write .md-diagram-panel .labelText tspan,
 #write .md-diagram-panel .sequenceNumber,
 #write .md-diagram-panel .classText,
-#write .md-diagram-panel .state-title {
+#write .md-diagram-panel .classText tspan,
+#write .md-diagram-panel .state-title,
+#write .md-diagram-panel .state-title tspan {
   fill: var(--mermaid-node-text) !important;
   color: var(--mermaid-node-text) !important;
   stroke: none !important;
