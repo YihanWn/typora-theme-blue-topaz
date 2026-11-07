@@ -40,6 +40,22 @@
   --hover-bg: rgba(76, 86, 106, 0.3); /* 悬停背景 */
   --selection-bg: rgba(94, 129, 172, 0.3); /* 选择背景 */
   --shadow: rgba(0, 0, 0, 0.3);     /* 阴影 */
+
+  /* Mermaid 图表：不设置 --mermaid-theme，让 Typora 读取下列自定义变量 */
+  --node-fill: #3b4252;
+  --node-text-color: #eceff4;
+  --cluster-fill: #343b49;
+  --mermaid-background: #272d38;
+  --mermaid-font-family: 'LXGW WenKai', 'LXGW WenKai Screen R', sans-serif;
+  --mermaid-flowchart-curve: basis;
+  --mermaid-canvas: #272d38;
+  --mermaid-node-bg: #3b4252;
+  --mermaid-node-border: #81a1c1;
+  --mermaid-node-text: #eceff4;
+  --mermaid-line: #8fbcbb;
+  --mermaid-edge-label-bg: #2e3440;
+  --mermaid-cluster-bg: rgba(67, 76, 94, 0.55);
+  --mermaid-cluster-border: #5e81ac;
   
   /* 字体设置（来自Obsidian配置） */
   --font-family-sans: 'LXGW WenKai', 'LXGW WenKai Screen R', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1068,6 +1084,189 @@ textarea {
 }
 
 /* ===========================================================================
+   Mermaid 图表
+   =========================================================================== */
+
+/* 图表画布：与正文拉开层次，同时保留横向滚动，避免宽图被裁切 */
+#write .md-diagram-panel {
+  margin: 1.5rem 0;
+  padding: 1.5rem 1.25rem;
+  overflow-x: auto;
+  color: var(--mermaid-node-text);
+  background:
+    radial-gradient(circle at top right, rgba(94, 129, 172, 0.16), transparent 38%),
+    linear-gradient(145deg, var(--mermaid-canvas), var(--bg-color-primary));
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(236, 239, 244, 0.04);
+  scrollbar-color: var(--accent-blue) transparent;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+#write .md-diagram-panel svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  background: transparent !important;
+}
+
+/* Mermaid 文字统一使用主题字体 */
+#write .md-diagram-panel text,
+#write .md-diagram-panel .label,
+#write .md-diagram-panel .nodeLabel,
+#write .md-diagram-panel .edgeLabel,
+#write .md-diagram-panel .cluster-label,
+#write .md-diagram-panel foreignObject div,
+.mermaidTooltip {
+  font-family: var(--font-family-sans) !important;
+}
+
+#write .md-diagram-panel .nodeLabel,
+#write .md-diagram-panel .nodeLabel p,
+#write .md-diagram-panel .label text,
+#write .md-diagram-panel .label span {
+  color: var(--mermaid-node-text) !important;
+  fill: var(--mermaid-node-text) !important;
+  font-weight: 600;
+}
+
+/* 流程图节点 */
+#write .md-diagram-panel .node rect,
+#write .md-diagram-panel .node circle,
+#write .md-diagram-panel .node ellipse,
+#write .md-diagram-panel .node polygon,
+#write .md-diagram-panel .node path {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
+  stroke-width: 1.6px !important;
+  filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.24));
+  transition: filter 0.2s ease, stroke 0.2s ease;
+}
+
+#write .md-diagram-panel .node polygon {
+  fill: #434052 !important;
+  stroke: var(--accent-purple) !important;
+}
+
+#write .md-diagram-panel .node:hover rect,
+#write .md-diagram-panel .node:hover circle,
+#write .md-diagram-panel .node:hover ellipse,
+#write .md-diagram-panel .node:hover polygon,
+#write .md-diagram-panel .node:hover path {
+  stroke: var(--accent-cyan) !important;
+  filter: drop-shadow(0 5px 10px rgba(143, 188, 187, 0.24));
+}
+
+/* 连线、箭头与连线标签 */
+#write .md-diagram-panel .flowchart-link,
+#write .md-diagram-panel .edgePath path,
+#write .md-diagram-panel .messageLine0,
+#write .md-diagram-panel .messageLine1,
+#write .md-diagram-panel .relation {
+  stroke: var(--mermaid-line) !important;
+  stroke-width: 1.7px !important;
+}
+
+#write .md-diagram-panel marker path,
+#write .md-diagram-panel .arrowheadPath {
+  fill: var(--mermaid-line) !important;
+  stroke: var(--mermaid-line) !important;
+}
+
+#write .md-diagram-panel .edgeLabel p,
+#write .md-diagram-panel span.edgeLabel {
+  color: var(--text-color-secondary) !important;
+  background: transparent !important;
+  margin: 0;
+}
+
+#write .md-diagram-panel .labelBkg {
+  color: var(--text-color-secondary) !important;
+  background-color: var(--mermaid-edge-label-bg) !important;
+  border-radius: 4px;
+}
+
+#write .md-diagram-panel .edgeLabel rect,
+#write .md-diagram-panel .labelBkg {
+  fill: var(--mermaid-edge-label-bg) !important;
+  opacity: 0.96 !important;
+}
+
+/* 子图容器 */
+#write .md-diagram-panel .cluster rect {
+  fill: var(--mermaid-cluster-bg) !important;
+  stroke: var(--mermaid-cluster-border) !important;
+  stroke-width: 1.2px !important;
+  stroke-dasharray: 5 4;
+  rx: 10px;
+  ry: 10px;
+}
+
+#write .md-diagram-panel .cluster-label text,
+#write .md-diagram-panel .cluster-label span,
+#write .md-diagram-panel .cluster-label p {
+  color: var(--accent-cyan) !important;
+  fill: var(--accent-cyan) !important;
+  font-weight: 700;
+}
+
+/* 时序图、状态图与类图中的常见元素 */
+#write .md-diagram-panel .actor,
+#write .md-diagram-panel .labelBox,
+#write .md-diagram-panel .classGroup rect,
+#write .md-diagram-panel .stateGroup rect,
+#write .md-diagram-panel .note {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-border) !important;
+}
+
+#write .md-diagram-panel .actor-line,
+#write .md-diagram-panel .classGroup line,
+#write .md-diagram-panel .loopLine {
+  stroke: var(--border-color) !important;
+}
+
+#write .md-diagram-panel .activation0,
+#write .md-diagram-panel .activation1,
+#write .md-diagram-panel .activation2 {
+  fill: var(--bg-color-tertiary) !important;
+  stroke: var(--accent-cyan) !important;
+}
+
+#write .md-diagram-panel .messageText,
+#write .md-diagram-panel .loopText,
+#write .md-diagram-panel .noteText,
+#write .md-diagram-panel .classText,
+#write .md-diagram-panel .state-title {
+  fill: var(--mermaid-node-text) !important;
+  color: var(--mermaid-node-text) !important;
+}
+
+#write .md-diagram-panel-error:empty {
+  display: none;
+}
+
+#write .md-diagram-panel-error:not(:empty) {
+  color: var(--accent-red);
+  background: rgba(191, 97, 106, 0.1);
+  border: 1px solid rgba(191, 97, 106, 0.55);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+}
+
+.mermaidTooltip {
+  color: var(--text-color-primary) !important;
+  background: var(--bg-color-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 8px 24px var(--shadow) !important;
+}
+
+/* ===========================================================================
    响应式设计
    =========================================================================== */
 
@@ -1079,6 +1278,11 @@ textarea {
   
   #typora-source .CodeMirror-lines {
     padding: 20px;
+  }
+
+  #write .md-diagram-panel {
+    padding: 1rem 0.5rem;
+    border-radius: 8px;
   }
   
   h1 { font-size: 1.5em; }
@@ -1201,6 +1405,12 @@ textarea {
     page-break-inside: avoid;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  #write .md-diagram-panel {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none;
   }
 
   table,
